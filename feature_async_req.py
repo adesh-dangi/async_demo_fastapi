@@ -4,11 +4,14 @@ from fastapi import Depends
 from fastapi.responses import JSONResponse
 import time
 import keys as C
-from main import get_session
 import requests
 from keys import FOOD_API, WEATHER_API, MUSIC_API, MAP_API
 from datetime import datetime
 import random
+
+async def get_session():
+    async with aiohttp.ClientSession() as session:
+        yield session
 
 async def business_get_combined_data(session: aiohttp.ClientSession = Depends(get_session)):
     """
